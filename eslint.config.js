@@ -36,6 +36,9 @@ export default defineConfig(
 	{
 		// Override or add rule settings here, such as:
 		// 'svelte/button-has-type': 'error'
-		rules: {}
+		rules: {
+			// shortcut: plain hrefs instead of resolve(); re-enable if the app ever deploys under a base path
+			// 'svelte/no-navigation-without-resolve': 'off'
+		}
 	}
 );

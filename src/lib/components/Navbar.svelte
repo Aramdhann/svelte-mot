@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
 	import './Navbar.css';
 
 	const items = [
@@ -18,33 +17,39 @@
 	let open = $state(false);
 
 	const isActive = (href: (typeof items)[number]['href']) =>
-		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(resolve(href));
+		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
 </script>
 
 <header class="mot-nav">
-	<a class="mot-nav__brand" href={resolve('/')}>MOT</a>
+	<div class="mot-nav__items">
+		<a class="mot-nav__brand" href="/">MOT</a>
 
-	<button
-		class="mot-nav__toggle"
-		aria-expanded={open}
-		aria-label="Toggle menu"
-		onclick={() => (open = !open)}
-	>
-		<span></span>
-		<span></span>
-		<span></span>
-	</button>
+		<form class="mot-nav__logout" action="/logout" method="post">
+			<button type="submit">Logout</button>
+		</form>
 
-	<nav class="mot-nav__menu" class:open aria-label="Main">
-		{#each items as item (item.href)}
-			<a
-				class="mot-nav__link"
-				href={resolve(item.href)}
-				aria-current={isActive(item.href) ? 'page' : undefined}
-				onclick={() => (open = false)}
-			>
-				{item.label}
-			</a>
-		{/each}
-	</nav>
+		<button
+			class="mot-nav__toggle"
+			aria-expanded={open}
+			aria-label="Toggle menu"
+			onclick={() => (open = !open)}
+		>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<nav class="mot-nav__menu" class:open aria-label="Main">
+			{#each items as item (item.href)}
+				<a
+					class="mot-nav__link"
+					href={item.href}
+					aria-current={isActive(item.href) ? 'page' : undefined}
+					onclick={() => (open = false)}
+				>
+					{item.label}
+				</a>
+			{/each}
+		</nav>
+	</div>
 </header>

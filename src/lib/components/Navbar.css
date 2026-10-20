@@ -11,6 +11,14 @@
 	border-bottom: 1px solid #e2e8f0;
 }
 
+.mot-nav__items {
+	display: flex;
+	flex-wrap: nowrap;
+	flex: 1;
+	align-items: center;
+	gap: 0 1rem;
+}
+
 .mot-nav__brand {
 	font-size: 1.125rem;
 	font-weight: 700;
@@ -22,6 +30,7 @@
 .mot-nav__menu {
 	display: flex;
 	flex: 1;
+	min-width: 0;
 	gap: 0.25rem;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
@@ -50,6 +59,29 @@
 .mot-nav__link[aria-current='page'] {
 	background: #0f172a;
 	color: #fff;
+}
+
+.mot-nav__logout {
+	display: flex;
+	align-items: center;
+}
+
+.mot-nav__logout button {
+	padding: 0.5rem 0.75rem;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	font: inherit;
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: #475569;
+	border-radius: 0.375rem;
+	white-space: nowrap;
+}
+
+.mot-nav__logout button:hover {
+	background: #f1f5f9;
+	color: #0f172a;
 }
 
 .mot-nav__toggle {
@@ -89,29 +121,63 @@
 	transform: translateY(-0.425rem) rotate(-45deg);
 }
 
+@media (min-width: 769px) {
+	.mot-nav__menu {
+		order: 1;
+	}
+
+	.mot-nav__logout {
+		order: 2;
+	}
+}
+
 @media (max-width: 768px) {
 	.mot-nav {
-		flex-wrap: wrap;
 		height: auto;
 		min-height: 3.5rem;
 		padding: 0.5rem 1rem;
 	}
 
+	.mot-nav__items {
+		flex-wrap: wrap;
+	}
+
+	.mot-nav__logout {
+		margin-left: auto;
+	}
+
 	.mot-nav__toggle {
 		display: flex;
+		margin-left: 0.5rem;
 	}
 
 	.mot-nav__menu {
-		display: none;
 		flex-basis: 100%;
 		flex-direction: column;
 		gap: 0.25rem;
-		padding-top: 0.5rem;
-		overflow: visible;
+		max-height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		overflow: hidden;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-0.5rem);
+		transition:
+			max-height 0.25s ease,
+			padding-top 0.25s ease,
+			padding-bottom 0.25s ease,
+			opacity 0.2s ease,
+			transform 0.25s ease,
+			visibility 0.25s;
 	}
 
 	.mot-nav__menu.open {
-		display: flex;
+		max-height: 30rem;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
 	}
 
 	.mot-nav__link {
