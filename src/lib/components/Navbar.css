@@ -1,0 +1,121 @@
+.mot-nav {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	height: 3.5rem;
+	padding: 0 1rem;
+	background: #fff;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.mot-nav__brand {
+	font-size: 1.125rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: #0f172a;
+	text-decoration: none;
+}
+
+.mot-nav__menu {
+	display: flex;
+	flex: 1;
+	gap: 0.25rem;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+}
+
+.mot-nav__menu::-webkit-scrollbar {
+	display: none;
+}
+
+.mot-nav__link {
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.375rem;
+	color: #475569;
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.mot-nav__link:hover {
+	background: #f1f5f9;
+	color: #0f172a;
+}
+
+.mot-nav__link[aria-current='page'] {
+	background: #0f172a;
+	color: #fff;
+}
+
+.mot-nav__toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.3rem;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0.5rem;
+	margin-left: auto;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+
+.mot-nav__toggle span {
+	display: block;
+	height: 2px;
+	width: 100%;
+	background: #0f172a;
+	border-radius: 1px;
+	transition:
+		transform 0.15s ease,
+		opacity 0.15s ease;
+}
+
+.mot-nav__toggle[aria-expanded='true'] span:nth-child(1) {
+	transform: translateY(0.425rem) rotate(45deg);
+}
+
+.mot-nav__toggle[aria-expanded='true'] span:nth-child(2) {
+	opacity: 0;
+}
+
+.mot-nav__toggle[aria-expanded='true'] span:nth-child(3) {
+	transform: translateY(-0.425rem) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+	.mot-nav {
+		flex-wrap: wrap;
+		height: auto;
+		min-height: 3.5rem;
+		padding: 0.5rem 1rem;
+	}
+
+	.mot-nav__toggle {
+		display: flex;
+	}
+
+	.mot-nav__menu {
+		display: none;
+		flex-basis: 100%;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding-top: 0.5rem;
+		overflow: visible;
+	}
+
+	.mot-nav__menu.open {
+		display: flex;
+	}
+
+	.mot-nav__link {
+		display: block;
+		padding: 0.625rem 0.75rem;
+	}
+}

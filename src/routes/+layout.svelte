@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DemoLinks from './demo/DemoLinks.svelte';
+	import Navbar from '#lib/components/Navbar.svelte';
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
@@ -11,5 +11,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children()}
-<DemoLinks />
+<div class="flex min-h-svh flex-col">
+	<Navbar />
+	{@render children()}
+</div>
