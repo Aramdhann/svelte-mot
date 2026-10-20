@@ -2,10 +2,10 @@
 	import Navbar from '#lib/components/Navbar.svelte';
 	import type { LayoutProps } from './$types';
 
-	let { children }: LayoutProps = $props();
+	let { data, children }: LayoutProps = $props();
 </script>
 
 <div class="flex min-h-svh flex-col">
-	<Navbar />
+	<Navbar user={data.user} />
 	{@render children()}
 </div>
