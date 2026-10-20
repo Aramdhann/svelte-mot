@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { resolve } from '$app/paths';
+	import Button from '#lib/components/Button.svelte';
+	import Input from '#lib/components/Input.svelte';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -25,50 +28,27 @@
 			<p class="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">{form.message}</p>
 		{/if}
 
-		<label class="block text-sm font-medium text-slate-700">
-			Name
-			<input
-				name="name"
-				required
-				autocomplete="name"
-				class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 focus:outline-none"
-			/>
-		</label>
+		<Input label="Name" name="name" required autocomplete="name" />
 
-		<label class="block text-sm font-medium text-slate-700">
-			Email
-			<input
-				type="email"
-				name="email"
-				required
-				autocomplete="email"
-				class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 focus:outline-none"
-			/>
-		</label>
+		<Input label="Email" name="email" type="email" required autocomplete="email" />
 
-		<label class="block text-sm font-medium text-slate-700">
-			Password
-			<input
-				type="password"
-				name="password"
-				required
-				minlength="8"
-				autocomplete="new-password"
-				class="mt-1 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 focus:outline-none"
-			/>
-		</label>
+		<Input
+			label="Password"
+			name="password"
+			type="password"
+			required
+			minlength={8}
+			autocomplete="new-password"
+		/>
 
-		<button
-			type="submit"
-			disabled={submitting}
-			class="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-60"
-		>
-			{submitting ? 'Creating account…' : 'Register'}
-		</button>
+		<Button type="submit" block loading={submitting} label="Register" />
 
 		<p class="text-center text-sm text-slate-500">
 			Already have an account?
-			<a href="/login" class="font-medium text-slate-900 underline underline-offset-2">Login</a>
+			<a
+				href={resolve('/(auth)/login')}
+				class="font-medium text-slate-900 underline underline-offset-2">Login</a
+			>
 		</p>
 	</form>
 </main>

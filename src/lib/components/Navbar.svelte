@@ -1,18 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	import type { User } from 'better-auth';
 	import './Navbar.css';
 
 	const items = [
-		{ label: 'Dashboard', href: '/' },
-		{ label: 'Wallets', href: '/wallets' },
-		{ label: 'Transactions', href: '/transactions' },
-		{ label: 'Budgets', href: '/budgets' },
-		{ label: 'Loans', href: '/loans' },
-		{ label: 'Notes', href: '/notes' },
-		{ label: 'Todo Cards', href: '/todo-cards' },
-		{ label: 'Link Cards', href: '/link-cards' },
-		{ label: 'Meter Readings', href: '/meter-readings' }
+		{ label: 'Dashboard', id: '/(app)' },
+		{ label: 'Wallets', id: '/(app)/wallets' },
+		{ label: 'Transactions', id: '/(app)/transactions' },
+		{ label: 'Budgets', id: '/(app)/budgets' },
+		{ label: 'Loans', id: '/(app)/loans' },
+		{ label: 'Notes', id: '/(app)/notes' },
+		{ label: 'Todo Cards', id: '/(app)/todo-cards' },
+		{ label: 'Link Cards', id: '/(app)/link-cards' },
+		{ label: 'Meter Readings', id: '/(app)/meter-readings' }
 	] as const;
 
 	let { user }: { user: User | null } = $props();
@@ -21,8 +22,10 @@
 	let userOpen = $state(false);
 	let confirmOpen = $state(false);
 
-	const isActive = (href: (typeof items)[number]['href']) =>
-		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
+	const isActive = (id: (typeof items)[number]['id']) => {
+		const href = resolve(id);
+		return href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
+	};
 
 	function onWindowClick(event: MouseEvent) {
 		if (userOpen && event.target instanceof Element && !event.target.closest('.mot-nav__user')) {
@@ -43,7 +46,7 @@
 
 <header class="mot-nav">
 	<div class="mot-nav__items">
-		<a class="mot-nav__brand" href="/">MOT</a>
+		<a class="mot-nav__brand" href={resolve('/(app)')}>Mot</a>
 
 		<form class="mot-nav__logout" id="mot-logout" action="/logout" method="post">
 			<button type="button" onclick={() => (confirmOpen = true)}>Logout</button>
@@ -92,11 +95,11 @@
 		</button>
 
 		<nav class="mot-nav__menu" class:open aria-label="Main">
-			{#each items as item (item.href)}
+			{#each items as item (item.id)}
 				<a
 					class="mot-nav__link"
-					href={item.href}
-					aria-current={isActive(item.href) ? 'page' : undefined}
+					href={resolve(item.id)}
+					aria-current={isActive(item.id) ? 'page' : undefined}
 					onclick={() => (open = false)}
 				>
 					{item.label}

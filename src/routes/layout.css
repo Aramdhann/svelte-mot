@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+
+h1 {
+	font-family: 'Radley', serif;
+	font-style: italic;
+}
